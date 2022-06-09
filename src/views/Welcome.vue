@@ -30,9 +30,11 @@
 <script setup lang="ts">
 import { reactive, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from "vue-router";
 import { ElNotification } from "element-plus";
 
 let store = useStore();
+let router = useRouter();
 let show = ref(false);
 
 onMounted(() => {
@@ -67,7 +69,7 @@ function signIn():void {
 
 // 注册
 function singUp():void {
-  console.log("signUp");
+  router.push("/signup");
 }
 
 

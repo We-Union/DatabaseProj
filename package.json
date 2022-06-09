@@ -7,8 +7,10 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@types/nprogress": "^0.2.0",
     "axios": "^0.27.2",
     "element-plus": "^2.2.2",
+    "nprogress": "^0.2.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"

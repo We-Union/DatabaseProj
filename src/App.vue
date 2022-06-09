@@ -21,7 +21,8 @@ import { onMounted } from "vue";
   --base-font-size : 16px;
   --base-color : #42b983;
   --base-font-color : #30835e;
-  --background-image :  url("https://cn.bing.com/th?id=OHR.LechfallFuessen_ZH-CN3887501600_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp");
+  --background-image :  url("https://pic2.zhimg.com/v2-579a1137afd4fba5bdb6bdb7591e8400_r.jpg?source=1940ef5c");
+  /* --background-image :  url("https://cn.bing.com/th?id=OHR.LechfallFuessen_ZH-CN3887501600_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"); */
 }
 
 @font-face {
@@ -67,8 +68,8 @@ nav a.router-link-exact-active {
 
 .route-wrapper {
   width: 100%;
-  min-height: 1500px;
-  overflow-x: scroll;
+  min-height: 700px;
+  overflow : hidden;
 }
 
 .MainFade-enter-from, .MainFade-leave-to {
