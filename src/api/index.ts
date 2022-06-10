@@ -125,7 +125,7 @@ export const query_myresume = (req_params : typing.QueryMyResume['req']) => requ
 export const upload_resume = (req_params : typing.UploadResume['req']) => request({
     url: "/upload-resume", method: "POST",
     params : { id : req_params.id },
-    data : { file : req_params.file }    
+    data : req_params.file
 });
 
 // 下载resume

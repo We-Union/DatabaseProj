@@ -3,9 +3,8 @@
     <transition name="MainFade" mode="in-out">
       <div v-if="show">
         
-
         <transition name="MainFade" mode="in-out">
-          <div v-if="store.state.query_reward_list.totalNum" style="min-height: 720px;">
+          <div v-if="store.state.query_reward_list.totalNum">
             <div class="main reward-item" v-for="c in store.state.query_reward_list.items" :key="c.id">
               <div style="display: flex;">
                 <div style="font-size: 17px;">
@@ -80,64 +79,60 @@
                   <div style="margin: 20px auto 20px;width: fit-content;padding-top: 15px;">
                     <div class="oneLineInput">
                     <div class="inputLabel">奖项名称</div>
-                      <input class="loginInput" type="text" placeholder="输入奖项名称" v-model="update_reward.name" @keyup.enter="CreateReward">
+                      <input class="loginInput" type="text" placeholder="输入奖项名称" v-model="update_reward.name" @keyup.enter="UpdateReward(c.id)">
                     </div>
                     <div class="oneLineInput">
                         <div class="inputLabel">获奖等第</div>
-                        <input class="loginInput" type="text" placeholder="输入获奖等第" v-model="update_reward.rank" @keyup.enter="CreateReward">
+                        <input class="loginInput" type="text" placeholder="输入获奖等第" v-model="update_reward.rank" @keyup.enter="UpdateReward(c.id)">
                     </div>
                     <div class="oneLineInput">
                         <div class="inputLabel">主办方</div>
-                        <input class="loginInput" type="text" placeholder="输入主办方" v-model="update_reward.host" @keyup.enter="CreateReward">
+                        <input class="loginInput" type="text" placeholder="输入主办方" v-model="update_reward.host" @keyup.enter="UpdateReward(c.id)">
                     </div>
                     <div class="oneLineInput">
                         <div class="inputLabel">获奖时间</div>
-                        <input class="loginInput" type="text" placeholder="输入获奖时间" v-model="update_reward.date" @keyup.enter="CreateReward">
+                        <input class="loginInput" type="text" placeholder="输入获奖时间" v-model="update_reward.date" @keyup.enter="UpdateReward(c.id)">
                     </div>
                   </div>
                   <div>
                     <button class="loginBtn" @click="UpdateReward(c.id)">更新</button>
                   </div>
               </div>
-
             </div>
-
-            <transition name="MainFade" mode="in-out">
-              <div class="Add" @click="store.state.ShowCreateReward = true" v-if="!store.state.ShowCreateReward">
-                <el-icon><CirclePlus /></el-icon>
-              </div>
-            </transition>
-            <transition name="MainFade" mode="in-out">
-              <div v-if="store.state.ShowCreateReward" class="main" style="margin-top: 40px;">
-                  <div style="margin: 20px auto 20px;width: fit-content;padding-top: 15px;">
-                      <div class="oneLineInput">
-                          <div class="inputLabel">奖项名称</div>
-                          <input class="loginInput" type="text" placeholder="输入奖项名称" v-model="create_reward.name" @keyup.enter="CreateReward">
-                      </div>
-                      <div class="oneLineInput">
-                          <div class="inputLabel">获奖等第</div>
-                          <input class="loginInput" type="text" placeholder="输入获奖等第" v-model="create_reward.rank" @keyup.enter="CreateReward">
-                      </div>
-                      <div class="oneLineInput">
-                          <div class="inputLabel">主办方</div>
-                          <input class="loginInput" type="text" placeholder="输入主办方" v-model="create_reward.host" @keyup.enter="CreateReward">
-                      </div>
-                      <div class="oneLineInput">
-                          <div class="inputLabel">获奖时间</div>
-                          <input class="loginInput" type="text" placeholder="输入获奖时间" v-model="create_reward.date" @keyup.enter="CreateReward">
-                      </div>
-                  </div>
-                  <div>
-                    <button class="loginBtn" @click="CreateReward">创建</button>
-                  </div>
-              </div>
-            </transition>
-
           </div>
           
         </transition>
 
-
+        <transition name="MainFade" mode="in-out">
+          <div class="Add" @click="store.state.ShowCreateReward = true" v-if="!store.state.ShowCreateReward">
+            <el-icon><CirclePlus /></el-icon>
+          </div>
+        </transition>
+        <transition name="MainFade" mode="in-out">
+          <div v-if="store.state.ShowCreateReward" class="main" style="margin-top: 40px;">
+              <div style="margin: 20px auto 20px;width: fit-content;padding-top: 15px;">
+                  <div class="oneLineInput">
+                      <div class="inputLabel">奖项名称</div>
+                      <input class="loginInput" type="text" placeholder="输入奖项名称" v-model="create_reward.name" @keyup.enter="CreateReward">
+                  </div>
+                  <div class="oneLineInput">
+                      <div class="inputLabel">获奖等第</div>
+                      <input class="loginInput" type="text" placeholder="输入获奖等第" v-model="create_reward.rank" @keyup.enter="CreateReward">
+                  </div>
+                  <div class="oneLineInput">
+                      <div class="inputLabel">主办方</div>
+                      <input class="loginInput" type="text" placeholder="输入主办方" v-model="create_reward.host" @keyup.enter="CreateReward">
+                  </div>
+                  <div class="oneLineInput">
+                      <div class="inputLabel">获奖时间</div>
+                      <input class="loginInput" type="text" placeholder="输入获奖时间" v-model="create_reward.date" @keyup.enter="CreateReward">
+                  </div>
+              </div>
+              <div>
+                <button class="loginBtn" @click="CreateReward">创建</button>
+              </div>
+          </div>
+        </transition>
 
         <!-- <transition name="MainFade" mode="in-out"> -->
           <div v-if="!store.state.query_reward_list.totalNum && !store.state.ShowCreateReward">
@@ -323,14 +318,13 @@ function DownloadReward(id : number) : void {
   //   background: 'rgba(0, 0, 0, 0.8)',
   // });
   let params = <typing.DownloadReward['req']>{ id };
-  store.dispatch("download_reward", params).then(() => {
-    console.log(store.state.ok);
+  // store.dispatch("download_reward", params).then(() => {
     // if (store.state.ok) {
     //   let url = "http://" + window.location.host + "/api/download-reward?id=" + id;
     //   window.open(url);
     // }
     // loading.close();
-  });
+  // });
   
 }
 

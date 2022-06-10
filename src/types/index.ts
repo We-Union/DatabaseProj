@@ -162,7 +162,8 @@ export interface QueryResume {
 export interface UpdateResume {
     req : {
         id : number,
-        file : FormData,
+        name : string,
+        target : string,
     },
     res : {}
 };
@@ -180,7 +181,7 @@ export interface QueryMyResume {
 
 export interface DownloadResume {
     req : {
-        id : string,
+        id : number,
     },
     res : {}
 };
@@ -210,7 +211,9 @@ export interface State {
     ok : boolean,
     LoginStatus : boolean,
     ShowCreateReward : boolean,
+    ShowCreateResume : boolean,
     CurRewardID : number,
+    CurResumeID : number,
     CurMode : number,
     loginInfo : Login['res'],
     query_reward : QueryReward['res'],
