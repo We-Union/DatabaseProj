@@ -5,22 +5,31 @@
         <div>
           <h1>欢迎来到&ensp;SimpleCV</h1>
         </div>
-        <div style="margin: 20px auto;width: fit-content;padding-top: 15px;"> 
-          <div class="oneLineInput">
-            <div class="inputLabel">账号</div>
-            <input class="loginInput" type="text" placeholder="输入账号" v-model="loggin.account" @keyup.enter="signIn">
+        <section v-if="store.state.LoginStatus">
+          <div align="left">
           </div>
-          <div>
+
+
+        </section>
+        <section v-else>
+          <div style="margin: 20px auto;width: fit-content;padding-top: 15px;"> 
             <div class="oneLineInput">
-              <div class="inputLabel">密码</div>
-              <input class="loginInput" type="password" placeholder="输入密码" v-model="loggin.password" @keyup.enter="signIn">
+              <div class="inputLabel">学号</div>
+              <input class="loginInput" type="text" placeholder="输入学号" v-model="loggin.username" @keyup.enter="login">
+            </div>
+            <div>
+              <div class="oneLineInput">
+                <div class="inputLabel">密码</div>
+                <input class="loginInput" type="password" placeholder="输入密码" v-model="loggin.password" @keyup.enter="login">
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <button class="loginBtn" @click="signIn">登录</button>
-          <button class="loginBtn" @click="singUp">注册</button>
-        </div>
+          <div>
+            <button class="loginBtn" @click="login">登录</button>
+            <button class="loginBtn" @click="signUp">注册</button>
+          </div>
+        </section>
+
       </div>
     </transition>
 
@@ -32,6 +41,9 @@ import { reactive, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from "vue-router";
 import { ElNotification } from "element-plus";
+import { handleRTCtime } from "@/hook/format";
+import * as typing from "@/types";
+
 
 let store = useStore();
 let router = useRouter();
@@ -41,34 +53,38 @@ onMounted(() => {
   show.value = true;
 })
 
-interface Account {
-  account : string,
-  password : string
-};
-
-let loggin = reactive<Account>({
-  account : "",
+let loggin = reactive<typing.Login['req']>({
+  username : "",
   password : "",
 });
 
-function checkVal():boolean {
-  if (loggin.account.trim().length == 0 || loggin.password.trim().length == 0) {
-    console.log("enter");
-    ElNotification({title : "Wrong!", message : "你还没有填完信息"});
+function checkVal(): boolean {
+  if (loggin.username.trim().length == 0 || loggin.password.trim().length == 0) {
+    ElNotification({title : "Wrong!", message : "你还没有填完信息", position: 'bottom-left'});
     return false;
   }
   return true;
 }
 
 // 登录
-function signIn():void {
+function login():void {
   if (checkVal()) {
-
+    store.dispatch("login", loggin).then(() => {
+      if (store.state.ok) {
+        ElNotification({
+          title: "登陆成功！",
+          message: "上次登录时间 " + handleRTCtime(store.state.loginInfo.last_login),  
+          position: 'bottom-left',
+          duration: 5000
+        });
+        store.state.LoginStatus = true;
+      }
+    });
   }
 }
 
 // 注册
-function singUp():void {
+function signUp():void {
   router.push("/signup");
 }
 
@@ -77,15 +93,6 @@ function singUp():void {
 <!-- https://cn.bing.com/th?id=OHR.LechfallFuessen_ZH-CN3887501600_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp -->
 
 <style scoped>
-.main {
-  border-radius: 1.2em;
-  padding: 30px 40px;
-  width: fit-content;
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(20px);
-  margin: 0 auto;
-  transition: all .3 ease;
-}
 
 .oneLineInput {
   padding: 10px;

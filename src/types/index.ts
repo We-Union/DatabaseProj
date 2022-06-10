@@ -25,12 +25,18 @@ export interface SignUp {
     res : {}
 };
 
-
 export interface QueryMyInfo {
     req : {},
-    res : {}
+    res : {
+        id : number,
+        username : string,
+        name : string,
+        email : string,
+        status : number,        // （1表示学生，2表示管理员）
+        created_at : string,
+        last_login : string,
+    }
 };
-
 
 export interface UpdateMyInfo {
     req : {
@@ -66,8 +72,7 @@ export interface CreateReward {
         rank : string,
         host : string,
         date : string,
-        file : Uint8Array
-    },
+    },  
     res : {}
 };
 
@@ -92,7 +97,15 @@ export interface QueryReward {
 
 export interface UpdateReward {
     req : {
-        id : number
+        id : number,
+    },
+    res : {}
+};
+
+export interface UploadReward {
+    req : {
+        id : number,
+        file : FormData,
     },
     res : {}
 };
@@ -143,7 +156,8 @@ export interface QueryResume {
 
 export interface UpdateResume {
     req : {
-        id : number
+        id : number,
+        file : FormData,
     },
     res : {}
 };
@@ -167,7 +181,10 @@ export interface DownloadResume {
 };
 
 export interface UploadResume {
-    req : {},
+    req : {
+        id : number,
+        file : FormData,
+    },
     res : {}
 };
 

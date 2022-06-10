@@ -1,17 +1,69 @@
 <template>
-  <nav>
-    <router-link style="font-size: 16px; color: var(--base-color);" to="/">Home</router-link> 
-    <span style="margin: 10px; font-size: 18px;color: gray;">|</span>
-    <router-link style="font-size: 16px; color: gray;" to="/about">About</router-link>
-  </nav>  
-  <router-view/>
+<div style="height : 1300px;">
+ <el-menu
+    :default-active="'0'"
+    class="el-menu-demo"
+    mode="horizontal"
+    :ellipsis="false"
+    @select="handleSelect"
+  >
+    <el-menu-item index="0" @click="router.push('/')"><el-icon><House /></el-icon>首页</el-menu-item>
+    <el-menu-item index="1" @click="router.push('/about')"><el-icon><InfoFilled /></el-icon>关于</el-menu-item>
+    <div class="flex-grow" />
+    <el-menu-item index="2" @click="router.push('/reward')"><el-icon><Management /></el-icon>获奖记录</el-menu-item>
+    <el-menu-item index="3" @click="router.push('/resume')"><el-icon><Tickets /></el-icon>我的简历</el-menu-item>
+    <el-menu-item index="4" @click="logout"><el-icon><Ship /></el-icon>登出</el-menu-item>
+
+  </el-menu>
+  <div style="margin-top: 50px;">
+    <router-view/>
+  </div>
+  
+</div>
+ 
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { onMounted } from "vue";
+import { useStore } from "vuex";
+import { ElNotification } from 'element-plus';
+import { handleRTCtime } from "@/hook/format";
 
-// let bodyDOM = document.getElementsByTagName("body");
+let store = useStore();
+let router = useRouter();
+document.documentElement.style.setProperty("--el-color-primary", "#42b983");
 
+onMounted(() => {
+  store.dispatch("query_myinfo").then(() => {
+    if (store.state.ok) {
+      store.state.LoginStatus = true;
+      ElNotification({
+        title: "欢迎回来 " + store.state.loginInfo.name,
+        message: "上次登录时间 " + handleRTCtime(store.state.loginInfo.last_login),
+        position: 'bottom-left',
+        duration: 10000,
+      });
+    }
+  });
+})
+
+const handleSelect = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
+
+function logout() {
+  store.dispatch("logout").then(() => {
+    if (store.state.ok) {
+      ElNotification({
+        title: "登出成功！",
+        duration : 10000,
+        position: "bottom-left"
+      });
+      store.state.LoginStatus = false;
+    }
+  })
+}
 
 </script>
 
@@ -23,6 +75,10 @@ import { onMounted } from "vue";
   --base-font-color : #30835e;
   --background-image :  url("https://pic2.zhimg.com/v2-579a1137afd4fba5bdb6bdb7591e8400_r.jpg?source=1940ef5c");
   /* --background-image :  url("https://cn.bing.com/th?id=OHR.LechfallFuessen_ZH-CN3887501600_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp"); */
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 @font-face {
@@ -53,6 +109,55 @@ body *::selection {
   color: white;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
+img {
+    transition: .3s all ease;
+    cursor: pointer;
+}
+
+img:hover {
+    transition: .3s all ease;
+    transform: scale(1.3);
+}
+
+.el-menu {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(20px);
+}
+
+.el-menu--horizontal {
+  border : 0 solid !important;
+}
+
+.el-menu-demo {
+  border-radius: 1.2em;
+  overflow: hidden;
+}
+
+.el-notification {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 0 solid !important;
+}
+
+.el-notification__title {
+  color: #42b983 !important;
+}
+
+.el-notification__content {
+  color: rgb(193, 211, 199) !important;
+}
+
+hr {
+    width: 75%;
+    text-align:center;
+    border: solid .8px var(--base-color);
+    margin: 4.5em auto;
+}
+
 nav {
   padding: 30px;
 }
@@ -66,6 +171,17 @@ nav a.router-link-exact-active {
   color: var(--base-color);
 }
 
+.main {
+  border-radius: 1.2em;
+  padding: 30px 40px;
+  width: fit-content;
+  max-width: 70%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  margin: 0 auto;
+  transition: all .3 ease;
+}
+
 .route-wrapper {
   width: 100%;
   min-height: 700px;
@@ -75,9 +191,11 @@ nav a.router-link-exact-active {
 .MainFade-enter-from, .MainFade-leave-to {
   opacity: 0;
   transform: translateY(300px);
+  transition: all 1s ease;
 }
 .MainFade-enter-to, .MainFade-leave-from {
   opacity: 1;
+  transition: all 1s ease;
 }
 .MainFade-enter-active,
 .MainFade-leave-active {
