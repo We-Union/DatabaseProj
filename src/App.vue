@@ -10,7 +10,7 @@
     <el-menu-item index="0" @click="router.push('/')"><el-icon><House /></el-icon>首页</el-menu-item>
     <el-menu-item index="1" @click="router.push('/about')"><el-icon><InfoFilled /></el-icon>关于</el-menu-item>
     <div class="flex-grow" />
-    <el-menu-item index="2" @click="router.push('/reward')"><el-icon><Management /></el-icon>获奖记录</el-menu-item>
+    <el-menu-item index="2" @click="GoToReward"><el-icon><Management /></el-icon>获奖记录</el-menu-item>
     <el-menu-item index="3" @click="router.push('/resume')"><el-icon><Tickets /></el-icon>我的简历</el-menu-item>
     <el-menu-item index="4" @click="logout"><el-icon><Ship /></el-icon>登出</el-menu-item>
 
@@ -63,6 +63,11 @@ function logout() {
       store.state.LoginStatus = false;
     }
   })
+}
+
+function GoToReward() {
+  store.state.ShowCreateReward = false;
+  router.push('/reward');
 }
 
 </script>
@@ -223,6 +228,49 @@ button:hover {
 .primary {
   color:  white !important;
   background-color: var(--base-font-color) !important;
+}
+
+.oneLineInput {
+  padding: 10px;
+  margin: 10px;
+  font-family: var(--base-font);
+  display: flex;
+}
+
+.loginInput {
+  font-family: var(--base-font);
+  font-size: 18px;
+  transition: .3 all ease;
+  border-radius: .5em;
+  border: 0 solid;
+  outline: none;
+  letter-spacing: 1px;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.loginInput:focus {
+  transition: .3s all ease;
+  color: white;
+  background-color: var(--base-color);
+  border: 0 solid;
+  box-shadow: 0 0 5px 3px var(--base-color);
+}
+
+.loginInput {
+  text-align: center;
+}
+
+.inputLabel {
+  margin-right: 20px;
+  width: 150px;
+  font-family: var(--base-font);
+  font-size: 18px;
+}
+
+.loginBtn {
+  font-size: 18px;
+  margin: 20px;
+  padding: 10px 20px;
 }
 
 </style>

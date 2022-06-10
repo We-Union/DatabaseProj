@@ -96,57 +96,6 @@ function signUp() {
 
 </script>
 
-<style scoped>
-.main {
-  border-radius: 1.2em;
-  padding: 30px 40px;
-  width: fit-content;
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(20px);
-  margin: 0 auto;
-  transition: all .3 ease;
-}
+<style>
 
-.oneLineInput {
-  padding: 10px;
-  margin: 10px;
-  font-family: var(--base-font);
-  display: flex;
-}
-
-.loginInput {
-  font-family: var(--base-font);
-  font-size: 18px;
-  transition: .3 all ease;
-  border-radius: .5em;
-  border: 0 solid;
-  outline: none;
-  letter-spacing: 1px;
-  background-color: rgba(255, 255, 255, 0.75);
-}
-
-.loginInput:focus {
-  transition: .3s all ease;
-  color: white;
-  background-color: var(--base-color);
-  border: 0 solid;
-  box-shadow: 0 0 5px 3px var(--base-color);
-}
-
-.loginInput {
-  text-align: center;
-}
-
-.inputLabel {
-  margin-right: 20px;
-  width: 150px;
-  font-family: var(--base-font);
-  font-size: 18px;
-}
-
-.loginBtn {
-  font-size: 18px;
-  margin: 20px;
-  padding: 10px 20px;
-}
 </style>

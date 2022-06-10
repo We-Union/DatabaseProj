@@ -4,10 +4,13 @@ import * as typing from "@/types";
 import { AxiosResponse } from 'axios';
 import { ElNotification } from 'element-plus';
 
+
+
 export default createStore({
   state: {
     ok : <boolean>false,
     LoginStatus : <boolean>false,
+    ShowCreateReward : <boolean>false,
     loginInfo : <typing.Login['res']>{},
     query_reward : <typing.QueryReward['res']>{},
     query_reward_list : <typing.QueryRewardList['res']>{},
