@@ -312,19 +312,8 @@ function UploadReward(e : any) : void {
 }
 
 function DownloadReward(id : number) : void {
-  // const loading = ElLoading.service({
-  //   lock : true,
-  //   text: '正在下载',
-  //   background: 'rgba(0, 0, 0, 0.8)',
-  // });
-  let params = <typing.DownloadReward['req']>{ id };
-  // store.dispatch("download_reward", params).then(() => {
-    // if (store.state.ok) {
-    //   let url = "http://" + window.location.host + "/api/download-reward?id=" + id;
-    //   window.open(url);
-    // }
-    // loading.close();
-  // });
+      let url = "http://" + window.location.host + "/api/download-reward?id=" + id;
+    window.open(url);
   
 }
 

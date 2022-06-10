@@ -23,7 +23,7 @@
                   <el-tooltip
                     class="box-item"
                     effect="dark"
-                    content="编辑奖项"
+                    content="编辑简历"
                     placement="top"
                   >
                     <span class="clickedIcon"><el-icon :size="24" @click="ShowUpdate(c.id)"><Edit /></el-icon> </span> 
@@ -50,7 +50,7 @@
                   <el-tooltip
                     class="box-item"
                     effect="dark"
-                    content="删除奖项"
+                    content="删除简历"
                     placement="top"
                   >
                     <span class="clickedIcon">
@@ -58,7 +58,7 @@
                         confirm-button-text="是的"
                         cancel-button-text="不"
                         icon-color="var(--base-color)"
-                        title="你确定要删除这个奖项吗？"
+                        title="你确定要删除这个简历吗？"
                         @confirm="DeleteResume(c.id)"
                       >
                         <template #reference>
@@ -103,7 +103,7 @@
                 <div style="margin: 20px auto 20px;width: fit-content;padding-top: 15px;">
                     <div class="oneLineInput">
                         <div class="inputLabel">简历名称</div>
-                        <input class="loginInput" type="text" placeholder="输入奖项名称" v-model="create_resume.name" @keyup.enter="CreateResume">
+                        <input class="loginInput" type="text" placeholder="输入简历名称" v-model="create_resume.name" @keyup.enter="CreateResume">
                     </div>
                     <div class="oneLineInput">
                         <div class="inputLabel">投递意向</div>
@@ -179,8 +179,8 @@ onMounted(() => {
   store.dispatch("query_myresume", resume_list_req).then(() => {
     if (store.state.ok) {
       ElNotification({
-        title: "成功查询奖项", 
-        message: "奖项数量 " + store.state.query_myresume.totalNum,
+        title: "成功查询简历", 
+        message: "简历数量 " + store.state.query_myresume.totalNum,
         duration: 5000,
         position: "bottom-left",
       });
@@ -288,20 +288,9 @@ function UploadResume(e : any) : void {
 }
 
 function DownloadResume(id : number) : void {
-  // const loading = ElLoading.service({
-  //   lock : true,
-  //   text: '正在下载',
-  //   background: 'rgba(0, 0, 0, 0.8)',
-  // });
-  let params = <typing.DownloadResume['req']>{ id };
-  // store.dispatch("download_resume", params).then(() => {
-    // if (store.state.ok) {
-    //   let url = "http://" + window.location.host + "/api/download-Resume?id=" + id;
-    //   window.open(url);
-    // }
-    // loading.close();
-  // });
   
+    let url = "http://" + window.location.host + "/api/download-resume?id=" + id;
+    window.open(url);
 }
 
 
