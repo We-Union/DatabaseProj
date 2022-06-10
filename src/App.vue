@@ -10,7 +10,7 @@
     <el-menu-item index="0" @click="router.push('/')"><el-icon><House /></el-icon>首页</el-menu-item>
     <el-menu-item index="1" @click="router.push('/about')"><el-icon><InfoFilled /></el-icon>关于</el-menu-item>
     <div class="flex-grow" />
-    <el-menu-item index="2" @click="GoToReward"><el-icon><Management /></el-icon>获奖记录</el-menu-item>
+    <el-menu-item index="2" @click="GoToReward"><el-icon><Medal /></el-icon>获奖记录</el-menu-item>
     <el-menu-item index="3" @click="router.push('/resume')"><el-icon><Tickets /></el-icon>我的简历</el-menu-item>
     <el-menu-item index="4" @click="logout"><el-icon><Ship /></el-icon>登出</el-menu-item>
 
@@ -29,8 +29,9 @@ import { onMounted } from "vue";
 import { useStore } from "vuex";
 import { ElNotification } from 'element-plus';
 import { handleRTCtime } from "@/hook/format";
+import * as typing from "@/types";
 
-let store = useStore();
+let store = useStore<typing.State>();
 let router = useRouter();
 document.documentElement.style.setProperty("--el-color-primary", "#42b983");
 

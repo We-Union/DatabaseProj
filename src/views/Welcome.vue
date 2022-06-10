@@ -45,7 +45,7 @@ import { handleRTCtime } from "@/hook/format";
 import * as typing from "@/types";
 
 
-let store = useStore();
+let store = useStore<typing.State>();
 let router = useRouter();
 let show = ref(false);
 

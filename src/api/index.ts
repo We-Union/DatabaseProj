@@ -66,13 +66,19 @@ export const query_reward = (req_params : typing.QueryReward['req']) => request(
 
 export const update_reward = (req_params : typing.UpdateReward['req']) => request({
     url: "/reward", method: "PUT",
-    params : { id : req_params.id }
+    params : { id : req_params.id },
+    data : {
+        name : req_params.name,
+        rank : req_params.rank,
+        host : req_params.host,
+        date : req_params.date,
+    }
 });
 
 export const upload_reward = (req_params : typing.UploadReward['req']) => request({
     url: "/upload-reward", method: "POST",
     params : { id : req_params.id },
-    data : { file : req_params.file }
+    data : req_params.file
 });
 
 export const download_reward = (req_params : typing.DownloadReward['req']) => request({

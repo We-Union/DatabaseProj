@@ -5,12 +5,13 @@ import { AxiosResponse } from 'axios';
 import { ElNotification } from 'element-plus';
 
 
-
-export default createStore({
+export default createStore<typing.State>({
   state: {
-    ok : <boolean>false,
-    LoginStatus : <boolean>false,
-    ShowCreateReward : <boolean>false,
+    ok : false,
+    LoginStatus : false,
+    ShowCreateReward : false,
+    CurRewardID : -1,
+    CurMode : -1,
     loginInfo : <typing.Login['res']>{},
     query_reward : <typing.QueryReward['res']>{},
     query_reward_list : <typing.QueryRewardList['res']>{},

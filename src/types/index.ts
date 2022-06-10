@@ -91,13 +91,18 @@ export interface QueryReward {
         name : string,
         rank : string,
         host : string,
-        date : string
+        date : string,
+        file : string
     }
 };
 
 export interface UpdateReward {
     req : {
         id : number,
+        name : string,
+        rank : string,
+        host : string,
+        date : string,
     },
     res : {}
 };
@@ -191,4 +196,25 @@ export interface UploadResume {
 export interface Logout {
     req : {},
     res : {}
+};
+
+export enum Operator {
+    CREATE = 0,
+    QUERY,
+    UPDATE,
+    DELETE,
+};
+
+// 在store中使用
+export interface State {
+    ok : boolean,
+    LoginStatus : boolean,
+    ShowCreateReward : boolean,
+    CurRewardID : number,
+    CurMode : number,
+    loginInfo : Login['res'],
+    query_reward : QueryReward['res'],
+    query_reward_list : QueryRewardList['res'],
+    query_resume : QueryResume['res'],
+    query_myresume : QueryMyResume['res'],
 };

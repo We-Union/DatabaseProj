@@ -41,7 +41,7 @@ import { useStore } from 'vuex';
 import * as typing from "@/types";
 import { ElNotification } from 'element-plus';
 
-let store = useStore();
+let store = useStore<typing.State>();
 let show = ref(false);
 
 onMounted(() => {
